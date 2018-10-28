@@ -1,26 +1,142 @@
 <html>
-    <head>
-        <title>
-            Tip Calculator
-        </title>
-    </head>
-    <body>
-        <h1>Tip Calculator</h1>
-        <div>
-            <form>
-                How much was the bill ?
-                <input type="text" name="billAmount">
-                How was the service ?
-                <select name="serviceType">
-                    <option value="1">Good</option>
-                    <option value="2">Average</option>
-                    <option value="3">Bad</option>
-                </select>
-                How many of you were there ?
-                <input type="number">
-                <button type="button">Calculate</button>
-            </form>
-        </div>
 
-    </body>
+<head>
+    <title>
+        Tip Calculator
+    </title>
+    <style>
+        .headerText {
+                text-align: center;
+                font-size: 3rem;
+                color: black                
+            }
+        
+        .containerForm {
+            align-content: center;
+            align-self: center;
+            height: 40% auto;
+            width: 25%;
+            background-color: #182825;
+            padding: 2%;
+            margin-left: 35%;
+            border-radius: 10px            
+        }
+
+        .containerResponse {
+            align-content: center;
+            align-self: center;
+            height: 10%;
+            width: 29%;
+            background-color: #182825;
+            
+            margin-left: 35%;
+            border-radius: 10px 
+        }
+       
+        .formBox {
+        }
+
+
+        select {
+            width: 30%;
+            padding: 1%
+            
+        }
+        body {
+            font-size: 1.2rem;
+            background-color:#6D8EA0;
+            color: white;
+        }
+
+        button{
+            padding: 2%;
+            margin-top: 3%;
+            font-size: 1rem;
+            background-color: #22AED1;
+            border-radius: 5px;
+            display: block;
+            font-weight: bold;
+            background-color: whitesmoke;
+        }
+
+        input:focus{
+            border: 2px solid #2980b9;
+        }       
+
+        #idIndividualServiceCharge {
+            padding: 5%;
+            margin-left: 2%
+        } 
+        </style>
+      
+</head>
+
+<body>
+    <h1 class='headerText'>Tip Calculator</h1>
+    <div>
+        <form class="containerForm">
+            How much was the food ?
+            <input type="text" name="billAmount" id="idBillAmount"> 
+            
+            <br>
+            <br>
+            How was the service ?
+            <br>
+            <select name="serviceType" id="idServiceType">
+                <option value="1">Good</option>
+                <option value="2">Average</option>
+                <option value="3">Bad</option>
+            </select>
+            <br>
+            <br>
+            How many of you were there ?
+            <input type="number" id="idPeople">
+            <br>
+            <br>
+            <button type="button" id="idCalculateButton">Calculate </button>
+        </form>
+
+        <br>
+        <div class="containerResponse" id="responseDiv">
+            <p id="idIndividualServiceCharge">
+                
+            </p>
+        </div>
+    </div>
+
+    <script>
+            document.getElementById("idCalculateButton").onclick = onClickCalculate;
+            document.getElementById("responseDiv").style.display = "none";
+            
+            
+            function onClickCalculate(){
+                var billAmount = document.getElementById("idBillAmount").value;
+                var numberOfPeople = document.getElementById("idPeople").value;
+                var serviceType = document.getElementById("idServiceType").value;
+                var serviceCharge;
+                if(serviceType == "1"){
+                    serviceCharge = billAmount*.10;
+                }else if(serviceType == "2"){   
+                    serviceCharge = billAmount*.05;
+                }else if(serviceType == "3"){
+                    serviceCharge = billAmount*.02;
+                }
+                
+                var individualServiceCharge = serviceCharge/numberOfPeople;
+
+                if(serviceType == "1" || serviceType == "2"){
+                    individualServiceCharge = Math.ceil(individualServiceCharge);
+                }else {
+                    individualServiceCharge = Math.floor(individualServiceCharge);
+                }
+
+                document.getElementById("idIndividualServiceCharge").innerHTML = 
+                "Each has to pay : " + individualServiceCharge + " INR";
+                document.getElementById("responseDiv").style.display = "block";
+                
+            }
+        </script>
+
+</body>
+
 </html>
