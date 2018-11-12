@@ -4,138 +4,152 @@
     <title>
         Tip Calculator
     </title>
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <style>
         .headerText {
                 text-align: center;
-                font-size: 3rem;
-                color: black                
+                font-size: 3.5rem;
+                color:white   ;   
+                font-family: Lato;  
+                background-color: hsl(180, 50%, 35%);        
             }
         
-        .containerForm {
-            align-content: center;
-            align-self: center;
+        .containerForm, .containerResponse {
+                     
             height: 40% auto;
-            width: 25%;
-            background-color: #182825;
-            padding: 2%;
-            margin-left: 35%;
-            border-radius: 10px            
+            width: 40%;
+            background-color: hsl(180, 40%, 30%);  
+            padding: 3%;
+            margin-left: 25%;
+            border-radius: 10px;
+            font-size: 1.5rem;  
+  
+                      
         }
 
         .containerResponse {
-            align-content: center;
-            align-self: center;
-            height: 10%;
-            width: 29%;
-            background-color: #182825;
+            height: 10px auto;
             
-            margin-left: 35%;
-            border-radius: 10px 
         }
-       
-        .formBox {
+
+        input, select{
+            width: 100%;
+    padding: 12px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 25px;
+    background-color: white;
         }
 
 
-        select {
-            width: 30%;
-            padding: 1%
-            
-        }
+
         body {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             background-color:#6D8EA0;
             color: white;
         }
 
         button{
             padding: 2%;
-            margin-top: 3%;
-            font-size: 1rem;
-            background-color: #22AED1;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            background-color: hsl(194, 40%, 65%);
             border-radius: 5px;
             display: block;
             font-weight: bold;
-            background-color: whitesmoke;
+            text-transform: uppercase;
+        }
+
+        button:hover{
+            transform: scale(1.02);
         }
 
         input:focus{
             border: 2px solid #2980b9;
         }       
-
+        
         #idIndividualServiceCharge {
-            padding: 5%;
-            margin-left: 2%
-        } 
+            align-content: center;
+
+            margin: 5px 2px;
+            margin-left: 30%;
+            font-family: Lato;
+            font-weight: 500;
+        }
+  
+        body{
+            background: linear-gradient(180deg,hsl(180, 90%, 35%), whitesmoke);
+
+        }
         </style>
-      
+
 </head>
 
 <body>
     <h1 class='headerText'>Tip Calculator</h1>
     <div>
         <form class="containerForm">
-            How much was the food ?
-            <input type="text" name="billAmount" id="idBillAmount"> 
-            
-            <br>
-            <br>
-            How was the service ?
-            <br>
+            <label for="idBillAmount"> How much was the food ? </label>
+            <input type="text" name="billAmount" id="idBillAmount" />
+
+            <label for="idServiceType"> How was the service ? </label>
+
             <select name="serviceType" id="idServiceType">
                 <option value="1">Good</option>
                 <option value="2">Average</option>
                 <option value="3">Bad</option>
             </select>
-            <br>
-            <br>
-            How many of you were there ?
+
+            <label for="idPeople"> How many of you were there ? </label>
             <input type="number" id="idPeople">
-            <br>
-            <br>
+
             <button type="button" id="idCalculateButton">Calculate </button>
         </form>
 
         <br>
         <div class="containerResponse" id="responseDiv">
             <p id="idIndividualServiceCharge">
-                
+
             </p>
         </div>
     </div>
 
     <script>
-            document.getElementById("idCalculateButton").onclick = onClickCalculate;
-            document.getElementById("responseDiv").style.display = "none";
-            
-            
-            function onClickCalculate(){
-                var billAmount = document.getElementById("idBillAmount").value;
-                var numberOfPeople = document.getElementById("idPeople").value;
-                var serviceType = document.getElementById("idServiceType").value;
-                var serviceCharge;
-                if(serviceType == "1"){
-                    serviceCharge = billAmount*.10;
-                }else if(serviceType == "2"){   
-                    serviceCharge = billAmount*.05;
-                }else if(serviceType == "3"){
-                    serviceCharge = billAmount*.02;
-                }
-                
-                var individualServiceCharge = serviceCharge/numberOfPeople;
+        document.getElementById("idCalculateButton").onclick = onClickCalculate;
+        document.getElementById("responseDiv").style.display = "none";
 
-                if(serviceType == "1" || serviceType == "2"){
-                    individualServiceCharge = Math.ceil(individualServiceCharge);
-                }else {
-                    individualServiceCharge = Math.floor(individualServiceCharge);
-                }
 
-                document.getElementById("idIndividualServiceCharge").innerHTML = 
-                "Each has to pay : " + individualServiceCharge + " INR";
-                document.getElementById("responseDiv").style.display = "block";
-                
+        function onClickCalculate() {
+            var billAmount = document.getElementById("idBillAmount").value;
+            var numberOfPeople = document.getElementById("idPeople").value;
+            var serviceType = document.getElementById("idServiceType").value;
+            var serviceCharge;
+            if (serviceType == "1") {
+                serviceCharge = billAmount * .10;
+            } else if (serviceType == "2") {
+                serviceCharge = billAmount * .05;
+            } else if (serviceType == "3") {
+                serviceCharge = billAmount * .02;
             }
-        </script>
+
+            var individualServiceCharge = serviceCharge / numberOfPeople;
+
+            if (serviceType == "1" || serviceType == "2") {
+                individualServiceCharge = Math.ceil(individualServiceCharge);
+            } else {
+                individualServiceCharge = Math.floor(individualServiceCharge);
+            }
+
+            document.getElementById("idIndividualServiceCharge").innerHTML =
+                "Each has to pay : " + individualServiceCharge + " INR";
+            document.getElementById("responseDiv").style.display = "block";
+
+        }
+    </script>
 
 </body>
 
